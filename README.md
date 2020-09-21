@@ -2,7 +2,7 @@
 Joins AKS VMSS Windows nodes to a domain
 
 ## How to use this
-Download the aksvmssdomainjoinwithkeyvault.ps1 script and deploy it to your Azure Automation subscription. You must have parameter values for the following:
+Download the [aksvmssdomainjoinwithkeyvault.ps1](https://github.com/x3nc0n/AzureAutomationAksDomainJoin/blob/master/aksvmssdomainjoinwithkeyvault.ps1) script and deploy it to your Azure Automation subscription. You must have parameter values for the following:
 
 - VmssResourceGroupName - This is the RG of the node pool VMSS, not the AKS service
 - VmssName - The name of the VMSS, not the AKS service
