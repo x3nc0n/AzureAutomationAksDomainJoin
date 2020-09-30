@@ -67,7 +67,7 @@ catch {
 }
 
 # Login-AzAccount -Credential $servicePrincipalConnection
-Set-AzContext -SubscriptionId "4c7c6072-3930-49d7-a31d-35a1ebc1c2e3"
+Set-AzContext -SubscriptionId <your-sub-id-here>
 
 # Create the settings for the JsonAdDomainJoin Extension
 # The key vault and secret must already exist
