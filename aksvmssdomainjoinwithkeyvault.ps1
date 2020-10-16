@@ -5,6 +5,8 @@ Param
   [Parameter (Mandatory= $true)]
   [String] $VmssResourceGroupName,
   [Parameter (Mandatory= $true)]
+  [String] $VmssSubscriptionID,
+  [Parameter (Mandatory= $true)]
   [String] $VmssName,
   [Parameter (Mandatory= $true)]
   [String] $domainName,
@@ -24,6 +26,8 @@ function _doImport {
     param(
     [Parameter (Mandatory= $true)]
     [String] $VmssResourceGroupName,
+    [Parameter (Mandatory= $true)]
+    [String] $VmssSubscriptionID,
     [Parameter (Mandatory= $true)]
     [String] $VmssName,
     [Parameter (Mandatory= $true)]
@@ -50,10 +54,9 @@ try
 {
     # Get the connection "AzureRunAsConnection"
     $servicePrincipalConnection = Get-AutomationConnection -Name 'AzureRunAsConnection'
-          
 
     "Logging in to Azure..."
-    Add-AzAccount -ServicePrincipal -TenantId $servicePrincipalConnection.TenantId -ApplicationId $servicePrincipalConnection.ApplicationId -CertificateThumbprint $servicePrincipalConnection.CertificateThumbprint 
+    Add-AzAccount -ServicePrincipal -TenantId $servicePrincipalConnection.TenantId -ApplicationId $servicePrincipalConnection.ApplicationId -CertificateThumbprint $servicePrincipalConnection.CertificateThumbprint
 }
 catch {
     if (!$servicePrincipalConnection)
@@ -67,7 +70,7 @@ catch {
 }
 
 # Login-AzAccount -Credential $servicePrincipalConnection
-Set-AzContext -SubscriptionId <your-sub-id-here>
+Set-AzContext -SubscriptionId $VmssSubscriptionID
 
 # Create the settings for the JsonAdDomainJoin Extension
 # The key vault and secret must already exist
@@ -85,7 +88,7 @@ $ExtVer = "1.3"
 Add-AzVmssExtension -VirtualMachineScaleSet $vmss -Name $vmssExtensionName -Publisher $vmssPublisher  `
   -Type $vmssExtensionType -TypeHandlerVersion $ExtVer -AutoUpgradeMinorVersion $True  `
   -Setting $Settings -ProtectedSetting $ProtectedSettings
-  
+
 # Update the VMSS with the new config
 
 Update-AzVmss -ResourceGroupName $VmssResourceGroupName -Name $vmssName -VirtualMachineScaleSet $vmss -ErrorAction Stop
