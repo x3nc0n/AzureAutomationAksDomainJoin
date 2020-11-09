@@ -1,8 +1,12 @@
 # AzureAutomationAksDomainJoin
 
-Joins AKS VMSS Windows nodes to a domain
+Joins AKS VMSS Windows nodes to a domain.
 
 ## How to use this
+
+This joins VMSS Windows nodes to an Active Directory domain. You can use Group Managed Service Accounts (gMSA) on domain-joined nodes.
+
+**This isn't offically supported, so don't open a ticket claiming someone at Microsoft told you this is supported. It's NOT, and you use the advice and code in this repository at your own risk.**
 
 ### Preparation
 
